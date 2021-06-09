@@ -23,6 +23,17 @@ export default class KeyboardShortcutsPlugin extends FlexPlugin {
   init(flex: typeof Flex, manager: Flex.Manager) {
     this.registerReducers(manager);
 
+    const getCurrentTaskId = (): string | undefined => {
+      const { tasks } = manager.store.getState().flex.worker;
+      const { pathname } = manager.store.getState().flex.router.location
+
+      if((pathname as string).match(/\/agent-desktop\//)) {
+        const task = pathname.slice(15, 49);
+        
+        return task.length > 0 ? task : undefined;
+      }
+    }
+
     const toggleSidebar = () => {
       flex.Actions.invokeAction("ToggleSidebar");
     }
@@ -37,33 +48,67 @@ export default class KeyboardShortcutsPlugin extends FlexPlugin {
       }
     }
 
-    const selectTask = () => {
-      const taskMap = manager.store.getState().flex.worker.tasks;
-      const topTask = taskMap.keys().next().value;
-      flex.Actions.invokeAction("SelectTask", { sid: topTask })
-    }
-
-    const acceptTask = () => {
-      const taskMap = manager.store.getState().flex.worker.tasks;
-      const topTask = taskMap.keys().next().value;
-      flex.Actions.invokeAction("AcceptTask", { sid: topTask })
+    const acceptSelectedTask = () => {
+      const taskId = getCurrentTaskId();
+      if(taskId) {
+        flex.Actions.invokeAction("AcceptTask", { sid: taskId })
+      }
     }
 
     const hangupCall = () => {
-      const taskMap = manager.store.getState().flex.worker.tasks;
-      const topTask = taskMap.keys().next().value;
-      flex.Actions.invokeAction("HangupCall", { sid: topTask })
+      const taskId = getCurrentTaskId();
+      if(taskId) {
+        flex.Actions.invokeAction("HangupCall", { sid: taskId })
+      }
     }
 
     const completeTask = () => {
-      const taskMap = manager.store.getState().flex.worker.tasks;
-      const topTask = taskMap.keys().next().value;
-      flex.Actions.invokeAction("CompleteTask", { sid: topTask })
+      const taskId = getCurrentTaskId();
+      if(taskId) {
+        flex.Actions.invokeAction("CompleteTask", { sid: taskId })
+      }
+    }
+
+    const selectNextTask = () => {
+      const { tasks } = manager.store.getState().flex.worker;
+      const taskId = getCurrentTaskId();
+
+      if(taskId) {
+        const taskIDs = Array.from(tasks.keys());
+        const currentIndex = taskIDs.indexOf(taskId);
+        const nextIndex = currentIndex === taskIDs.length - 1 ? 0 : currentIndex + 1;
+
+        flex.Actions.invokeAction("SelectTask", { sid: taskIDs[nextIndex] })
+      } else {
+        const topTask = tasks.keys().next().value;
+        flex.Actions.invokeAction("SelectTask", { sid: topTask })
+      }
+    }
+
+    const selectPreviousTask = () => {
+      const { tasks } = manager.store.getState().flex.worker;
+      const taskId = getCurrentTaskId();
+
+      if(taskId) {
+        const taskIDs = Array.from(tasks.keys());
+        const currentIndex = taskIDs.indexOf(taskId);
+        const nextIndex = currentIndex === 0 ? taskIDs.length - 1 : currentIndex - 1;
+
+        flex.Actions.invokeAction("SelectTask", { sid: taskIDs[nextIndex] })
+      } else {
+        const topTask = tasks.keys().next().value;
+        flex.Actions.invokeAction("SelectTask", { sid: topTask })
+      }
     }
 
     const keyShortcuts: Shortcut[] = [
       {keys: ['s'], action: toggleSidebar},
-      {keys: ['Shift', 'T'], action: toggleSidebar}
+      {keys: ['`'], action: selectNextTask},
+      {keys: ['Shift', '~'], action: selectPreviousTask},
+      {keys: ['a'], action: acceptSelectedTask},
+      {keys: ['o'], action: toggleAvailability},
+      {keys: ['h'], action: hangupCall},
+      {keys: ['c'], action: completeTask}
     ]
 
     flex.RootContainer.Content.add(<KeyboardShortcut shortcuts={keyShortcuts} key="keyboard-shortcuts"/>)
