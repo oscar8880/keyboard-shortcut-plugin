@@ -2,8 +2,9 @@ import React from 'react';
 import * as Flex from '@twilio/flex-ui';
 import { FlexPlugin } from 'flex-plugin';
 
-import CustomTaskListContainer from './components/CustomTaskList/CustomTaskList.Container';
 import reducers, { namespace } from './states';
+import KeyboardShortcut from './components/KeyboardShortcut/KeyboardShortcut.Container';
+import { Shortcut } from 'components/KeyboardShortcut/KeyboardShortcut';
 
 const PLUGIN_NAME = 'KeyboardShortcutsPlugin';
 
@@ -22,11 +23,50 @@ export default class KeyboardShortcutsPlugin extends FlexPlugin {
   init(flex: typeof Flex, manager: Flex.Manager) {
     this.registerReducers(manager);
 
-    const options: Flex.ContentFragmentProps = { sortOrder: -1 };
-    flex.AgentDesktopView
-      .Panel1
-      .Content
-      .add(<CustomTaskListContainer key="KeyboardShortcutsPlugin-component" />, options);
+    const toggleSidebar = () => {
+      flex.Actions.invokeAction("ToggleSidebar");
+    }
+
+    const toggleAvailability = () => {
+      const { activity } = manager.store.getState().flex.worker;
+      if(activity.name === "Offline" || activity.name === "Unavailable") {
+        flex.Actions.invokeAction("SetActivity", { activityAvailable: true, activityName: "Available" })
+      }
+      if(activity.name === "Available") {
+        flex.Actions.invokeAction("SetActivity", { activityAvailable: false, activityName: "Unavailable" })
+      }
+    }
+
+    const selectTask = () => {
+      const taskMap = manager.store.getState().flex.worker.tasks;
+      const topTask = taskMap.keys().next().value;
+      flex.Actions.invokeAction("SelectTask", { sid: topTask })
+    }
+
+    const acceptTask = () => {
+      const taskMap = manager.store.getState().flex.worker.tasks;
+      const topTask = taskMap.keys().next().value;
+      flex.Actions.invokeAction("AcceptTask", { sid: topTask })
+    }
+
+    const hangupCall = () => {
+      const taskMap = manager.store.getState().flex.worker.tasks;
+      const topTask = taskMap.keys().next().value;
+      flex.Actions.invokeAction("HangupCall", { sid: topTask })
+    }
+
+    const completeTask = () => {
+      const taskMap = manager.store.getState().flex.worker.tasks;
+      const topTask = taskMap.keys().next().value;
+      flex.Actions.invokeAction("CompleteTask", { sid: topTask })
+    }
+
+    const keyShortcuts: Shortcut[] = [
+      {keys: ['s'], action: toggleSidebar},
+      {keys: ['Shift', 'T'], action: toggleSidebar}
+    ]
+
+    flex.RootContainer.Content.add(<KeyboardShortcut shortcuts={keyShortcuts} key="keyboard-shortcuts"/>)
   }
 
   /**

@@ -1,7 +1,7 @@
 import { AppState as FlexAppState } from '@twilio/flex-ui';
 import { combineReducers, Action as ReduxAction } from 'redux';
 
-import { CustomTaskListState, reduce as CustomTaskListReducer } from './CustomTaskListState';
+import { KeyboardShortcutState, reduce as KeyboardShortcutReducer } from './KeyboardShortcutState';
 
 // Register your redux store under a unique namespace
 export const namespace = 'keyboard-shortcuts';
@@ -15,12 +15,11 @@ export interface Action extends ReduxAction {
 export interface AppState {
   flex: FlexAppState;
   'keyboard-shortcuts': {
-    customTaskList: CustomTaskListState;
-    // Other states
+    keyboardShortcut: KeyboardShortcutState;
   };
 }
 
 // Combine the reducers
 export default combineReducers({
-  customTaskList: CustomTaskListReducer
+  keyboardShortcut: KeyboardShortcutReducer
 });
