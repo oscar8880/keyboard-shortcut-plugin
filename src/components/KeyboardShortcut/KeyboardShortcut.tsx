@@ -1,13 +1,10 @@
+import { KeyBoardShortcutRule } from 'KeyboardShortcutManager';
 import React, { Component } from 'react';
 
 import { StateToProps, DispatchToProps } from './KeyboardShortcut.Container';
 
-export interface Shortcut {
-    keys: string[], action: () => void
-}
-
 type KeyboardShortcutProps = {
-    shortcuts: Shortcut[]
+    shortcuts: KeyBoardShortcutRule[]
 } & StateToProps & DispatchToProps;
 
 class KeyboardShortcut extends Component<KeyboardShortcutProps> {

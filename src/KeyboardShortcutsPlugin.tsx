@@ -4,7 +4,7 @@ import { FlexPlugin } from 'flex-plugin';
 
 import reducers, { namespace } from './states';
 import KeyboardShortcut from './components/KeyboardShortcut/KeyboardShortcut.Container';
-import { Shortcut } from 'components/KeyboardShortcut/KeyboardShortcut';
+import KeyBoardShortcutManager, { KeyBoardShortcutRule } from './KeyboardShortcutManager';
 
 const PLUGIN_NAME = 'KeyboardShortcutsPlugin';
 
@@ -23,84 +23,17 @@ export default class KeyboardShortcutsPlugin extends FlexPlugin {
   init(flex: typeof Flex, manager: Flex.Manager) {
     this.registerReducers(manager);
 
-    const toggleSidebar = () => {
-      flex.Actions.invokeAction("ToggleSidebar");
-    }
+    const shortcutManager = new KeyBoardShortcutManager(flex, manager);
 
-    const toggleAvailability = () => {
-      const { activity } = manager.store.getState().flex.worker;
-      if(activity.name === "Offline" || activity.name === "Unavailable") {
-        flex.Actions.invokeAction("SetActivity", { activityAvailable: true, activityName: "Available" })
-      }
-      if(activity.name === "Available") {
-        flex.Actions.invokeAction("SetActivity", { activityAvailable: false, activityName: "Unavailable" })
-      }
-    }
+    shortcutManager.addShortcut(['s'], shortcutManager.toggleSidebar);
+    shortcutManager.addShortcut(['`'], shortcutManager.selectNextTask);
+    shortcutManager.addShortcut(['Shift', '~'], shortcutManager.selectPreviousTask);
+    shortcutManager.addShortcut(['a'], shortcutManager.acceptSelectedTask);
+    shortcutManager.addShortcut(['o'], shortcutManager.toggleAvailability);
+    shortcutManager.addShortcut(['h'], shortcutManager.hangupCall);
+    shortcutManager.addShortcut(['c'], shortcutManager.completeTask);
 
-    const acceptSelectedTask = () => {
-      const { selectedTaskSid } = manager.store.getState().flex.view
-      if(selectedTaskSid) {
-        flex.Actions.invokeAction("AcceptTask", { sid: selectedTaskSid })
-      }
-    }
-
-    const hangupCall = () => {
-      const { selectedTaskSid } = manager.store.getState().flex.view
-      if(selectedTaskSid) {
-        flex.Actions.invokeAction("HangupCall", { sid: selectedTaskSid })
-      }
-    }
-
-    const completeTask = () => {
-      const { selectedTaskSid } = manager.store.getState().flex.view
-      if(selectedTaskSid) {
-        flex.Actions.invokeAction("CompleteTask", { sid: selectedTaskSid })
-      }
-    }
-
-    const selectNextTask = () => {
-      const { tasks } = manager.store.getState().flex.worker;
-      const { selectedTaskSid } = manager.store.getState().flex.view
-
-      if(selectedTaskSid) {
-        const taskIDs = Array.from(tasks.keys());
-        const currentIndex = taskIDs.indexOf(selectedTaskSid);
-        const nextIndex = currentIndex === taskIDs.length - 1 ? 0 : currentIndex + 1;
-
-        flex.Actions.invokeAction("SelectTask", { sid: taskIDs[nextIndex] })
-      } else {
-        const topTask = tasks.keys().next().value;
-        flex.Actions.invokeAction("SelectTask", { sid: topTask })
-      }
-    }
-
-    const selectPreviousTask = () => {
-      const { tasks } = manager.store.getState().flex.worker;
-      const { selectedTaskSid } = manager.store.getState().flex.view
-
-      if(selectedTaskSid) {
-        const taskIDs = Array.from(tasks.keys());
-        const currentIndex = taskIDs.indexOf(selectedTaskSid);
-        const previousIndex = currentIndex === 0 ? taskIDs.length - 1 : currentIndex - 1;
-
-        flex.Actions.invokeAction("SelectTask", { sid: taskIDs[previousIndex] })
-      } else {
-        const topTask = tasks.keys().next().value;
-        flex.Actions.invokeAction("SelectTask", { sid: topTask })
-      }
-    }
-
-    const keyShortcuts: Shortcut[] = [
-      {keys: ['s'], action: toggleSidebar},
-      {keys: ['`'], action: selectNextTask},
-      {keys: ['Shift', '~'], action: selectPreviousTask},
-      {keys: ['a'], action: acceptSelectedTask},
-      {keys: ['o'], action: toggleAvailability},
-      {keys: ['h'], action: hangupCall},
-      {keys: ['c'], action: completeTask}
-    ]
-
-    flex.RootContainer.Content.add(<KeyboardShortcut shortcuts={keyShortcuts} key="keyboard-shortcuts"/>)
+    flex.RootContainer.Content.add(<KeyboardShortcut shortcuts={shortcutManager.shortcuts} key="keyboard-shortcuts"/>)
   }
 
   /**
