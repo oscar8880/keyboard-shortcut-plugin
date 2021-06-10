@@ -1,7 +1,9 @@
 import { KeyBoardShortcutRule } from 'KeyboardShortcutManager';
 import React, { Component } from 'react';
+import { Dialog, DialogContent, DialogTitle, List, ListItem, ListItemText, Typography } from '@material-ui/core'
 
 import { StateToProps, DispatchToProps } from './KeyboardShortcut.Container';
+import { keyboardGuide } from './KeyboardShortcutGuide';
 
 type KeyboardShortcutProps = {
     shortcuts: KeyBoardShortcutRule[]
@@ -18,7 +20,7 @@ class KeyboardShortcut extends Component<KeyboardShortcutProps> {
             return;
         }
 
-        // Check that this is the first key event
+        // Check that this is a non-repeating key event
         if (repeat) return; 
 
         if(eventType === 'keydown') {
@@ -58,8 +60,23 @@ class KeyboardShortcut extends Component<KeyboardShortcutProps> {
 
     render() {
         return (
-         <>
-         </>
+            <Dialog open={this.props.isGuideModalOpen} onClose={this.props.closeGuideModal} fullWidth maxWidth="sm" onBackdropClick={this.props.closeGuideModal}>
+                <DialogTitle>Keyboard Shortcuts Help</DialogTitle>
+                <DialogContent>
+                    <List>
+                        {keyboardGuide.map((shortcut, i) => {
+                            return (
+                                <ListItem divider={i !== keyboardGuide.length - 1} key={shortcut.description}>
+                                    <ListItemText>{shortcut.description}</ListItemText>
+                                    <Typography align="right">
+                                        {shortcut.keys}
+                                    </Typography>
+                                </ListItem>
+                            )
+                        })}
+                    </List>
+                </DialogContent>
+            </Dialog>
         );
       }
 }

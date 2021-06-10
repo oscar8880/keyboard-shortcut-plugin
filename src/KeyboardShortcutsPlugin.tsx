@@ -4,7 +4,9 @@ import { FlexPlugin } from 'flex-plugin';
 
 import reducers, { namespace } from './states';
 import KeyboardShortcut from './components/KeyboardShortcut/KeyboardShortcut.Container';
-import KeyBoardShortcutManager, { KeyBoardShortcutRule } from './KeyboardShortcutManager';
+import KeyBoardShortcutManager from './KeyboardShortcutManager';
+import { IconButton } from '@twilio/flex-ui';
+import { Actions } from './states/KeyboardShortcutState';
 
 const PLUGIN_NAME = 'KeyboardShortcutsPlugin';
 
@@ -25,15 +27,21 @@ export default class KeyboardShortcutsPlugin extends FlexPlugin {
 
     const shortcutManager = new KeyBoardShortcutManager(flex, manager);
 
-    shortcutManager.addShortcut(['s'], shortcutManager.toggleSidebar);
-    shortcutManager.addShortcut(['`'], shortcutManager.selectNextTask);
-    shortcutManager.addShortcut(['Shift', '~'], shortcutManager.selectPreviousTask);
-    shortcutManager.addShortcut(['a'], shortcutManager.acceptSelectedTask);
-    shortcutManager.addShortcut(['o'], shortcutManager.toggleAvailability);
-    shortcutManager.addShortcut(['h'], shortcutManager.hangupCall);
-    shortcutManager.addShortcut(['c'], shortcutManager.completeTask);
+    shortcutManager.addShortcut(['g'], shortcutManager.toggleGuide.bind(shortcutManager));
+    shortcutManager.addShortcut(['s'], shortcutManager.toggleSidebar.bind(shortcutManager));
+    shortcutManager.addShortcut(['`'], shortcutManager.selectNextTask.bind(shortcutManager));
+    shortcutManager.addShortcut(['Shift', '~'], shortcutManager.selectPreviousTask.bind(shortcutManager));
+    shortcutManager.addShortcut(['a'], shortcutManager.acceptSelectedTask.bind(shortcutManager));
+    shortcutManager.addShortcut(['o'], shortcutManager.toggleAvailability.bind(shortcutManager));
+    shortcutManager.addShortcut(['e'], shortcutManager.endCall.bind(shortcutManager));
+    shortcutManager.addShortcut(['m'], shortcutManager.muteCall.bind(shortcutManager));
+    shortcutManager.addShortcut(['h'], shortcutManager.holdCall.bind(shortcutManager));
+    shortcutManager.addShortcut(['u'], shortcutManager.unholdCall.bind(shortcutManager));
+    shortcutManager.addShortcut(['c'], shortcutManager.completeTask.bind(shortcutManager));
+    shortcutManager.addShortcut(['w'], shortcutManager.wrapuptask.bind(shortcutManager));
 
     flex.RootContainer.Content.add(<KeyboardShortcut shortcuts={shortcutManager.shortcuts} key="keyboard-shortcuts"/>)
+    flex.MainHeader.Content.add(<IconButton onClick={() => manager.store.dispatch(Actions.openGuideModal())} key="keyboard-shortcuts-guide" icon="IcnInfo"/>,  { sortOrder: 1 } )
   }
 
   /**

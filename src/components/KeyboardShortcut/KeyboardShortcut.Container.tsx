@@ -7,18 +7,24 @@ import KeyboardShortcut from './KeyboardShortcut';
 
 export interface StateToProps {
   pressedKeys: PressedKeys;
+  isGuideModalOpen: boolean;
 }
 
 export interface DispatchToProps {
     updateKeysPressed: (pressedKeys: PressedKeys) => void;
+    openGuideModal: () => void;
+    closeGuideModal: () => void;
 }
 
 const mapStateToProps = (state: AppState): StateToProps => ({
   pressedKeys: state['keyboard-shortcuts'].keyboardShortcut.pressedKeys,
+  isGuideModalOpen: state['keyboard-shortcuts'].keyboardShortcut.isGuideModalOpen
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchToProps => ({
   updateKeysPressed: bindActionCreators(Actions.updateKeysPressed, dispatch),
+  openGuideModal: bindActionCreators(Actions.openGuideModal, dispatch),
+  closeGuideModal: bindActionCreators(Actions.closeGuideModal, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(KeyboardShortcut);

@@ -6,6 +6,8 @@
     "postinstall": "flex-plugin pre-script-check"
   },
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
+    "emotion": "^9.2.6",
     "flex-plugin-scripts": "4.0.1",
     "react": "16.5.2",
     "react-dom": "16.5.2"

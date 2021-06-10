@@ -1,4 +1,5 @@
 import { Flex } from "@twilio/flex-ui/src/FlexGlobal";
+import { Actions } from './states/KeyboardShortcutState';
 
 export interface KeyBoardShortcutRule {
     keys: string[], action: () => void
@@ -15,15 +16,23 @@ class KeyBoardShortcutManager {
         this.shortcuts = [];
     }
 
-    public addShortcut = (keys: string[], action: () => void) => {
+    public addShortcut(keys: string[], action: () => void) {
         this.shortcuts = [...this.shortcuts, {keys: keys, action: action}];
     }
 
-    public toggleSidebar = () => {
+    public toggleGuide() {
+        if(this.manager.store.getState()['keyboard-shortcuts'].keyboardShortcut.isGuideModalOpen) {
+            this.manager.store.dispatch(Actions.closeGuideModal())
+        } else {
+            this.manager.store.dispatch(Actions.openGuideModal())
+        } 
+    }
+
+    public toggleSidebar() {
         this.flex.Actions.invokeAction("ToggleSidebar");
     }
   
-    public toggleAvailability = () => {
+    public toggleAvailability() {
         const { activity } = this.manager.store.getState().flex.worker;
         if(activity.name === "Offline" || activity.name === "Unavailable") {
             this.flex.Actions.invokeAction("SetActivity", { activityAvailable: true, activityName: "Available" })
@@ -33,28 +42,70 @@ class KeyBoardShortcutManager {
         }
     }
 
-    public acceptSelectedTask = () => {
+    public acceptSelectedTask() {
         const { selectedTaskSid } = this.manager.store.getState().flex.view
         if(selectedTaskSid) {
             this.flex.Actions.invokeAction("AcceptTask", { sid: selectedTaskSid })
         }
     }
 
-    public hangupCall = () => {
+    public endCall() {
         const { selectedTaskSid } = this.manager.store.getState().flex.view
-        if(selectedTaskSid) {
-            this.flex.Actions.invokeAction("HangupCall", { sid: selectedTaskSid })
+        const { connection } = this.manager.store.getState().flex.phone
+
+        if(selectedTaskSid && connection) {
+            this.flex.Actions.invokeAction("HangupCall", { sid: selectedTaskSid });
         }
     }
 
-    public completeTask = () => {
+    public muteCall() {
+        const { selectedTaskSid } = this.manager.store.getState().flex.view
+        const { connection } = this.manager.store.getState().flex.phone
+
+        if(selectedTaskSid && connection) {
+            this.flex.Actions.invokeAction("ToggleMute")
+        }
+    }
+
+    public holdCall() {
+        const { selectedTaskSid } = this.manager.store.getState().flex.view
+        const { connection } = this.manager.store.getState().flex.phone
+
+        if(selectedTaskSid && connection) {
+            this.flex.Actions.invokeAction("HoldCall", { sid: selectedTaskSid });
+        }
+    }
+
+    public unholdCall() {
+        const { selectedTaskSid } = this.manager.store.getState().flex.view
+        const { connection } = this.manager.store.getState().flex.phone
+
+        if(selectedTaskSid && connection) {
+            this.flex.Actions.invokeAction("UnholdCall", { sid: selectedTaskSid });
+        }
+    }
+
+    public wrapuptask() {
+        const { selectedTaskSid } = this.manager.store.getState().flex.view
+        const { connection } = this.manager.store.getState().flex.phone
+
+        if(selectedTaskSid) {
+            if(connection) {
+                this.flex.Actions.invokeAction("HangupCall", { sid: selectedTaskSid })
+            } else {
+                this.flex.Actions.invokeAction("WrapupTask", { sid: selectedTaskSid })
+            }
+        }
+    }
+
+    public completeTask() {
         const { selectedTaskSid } = this.manager.store.getState().flex.view
         if(selectedTaskSid) {
             this.flex.Actions.invokeAction("CompleteTask", { sid: selectedTaskSid })
         }
     }
 
-    public selectNextTask = () => {
+    public selectNextTask() {
         const { tasks } = this.manager.store.getState().flex.worker;
         const { selectedTaskSid } = this.manager.store.getState().flex.view
 
@@ -70,7 +121,7 @@ class KeyBoardShortcutManager {
         }
     }
 
-    public selectPreviousTask = () => {
+    public selectPreviousTask() {
         const { tasks } = this.manager.store.getState().flex.worker;
         const { selectedTaskSid } = this.manager.store.getState().flex.view
 
