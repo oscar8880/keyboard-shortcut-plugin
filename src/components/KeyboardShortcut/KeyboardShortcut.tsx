@@ -16,8 +16,6 @@ class KeyboardShortcut extends Component<KeyboardShortcutProps> {
         const { key: pressedKey, type: eventType, repeat } = e;
         const { tagName } = (e.target as Element);
 
-        console.log(pressedKey)
-
         // Check user is not inputting text
         if (tagName === "INPUT" || tagName === "TEXTAREA") {
             return;
