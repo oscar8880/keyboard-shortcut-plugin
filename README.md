@@ -18,13 +18,19 @@ cd keyboard-shortcut-plugin
 npm install
 ```
 
-3. Start the plugin locally by running:
+3. Copy the example appConfig.js file:
+
+```bash
+cp public/appConfig.example.js public/appConfig.js
+```
+
+4. Start the plugin locally by running:
 
 ```bash
 twilio flex:plugins:start
 ```
 
-4. A Flex instance should now be running on localhost:3000. You might need to login to your Flex instance by clicking on the "Login with Twilio" link and logging in with your Twilio credentials.
+5. A Flex instance should now be running on localhost:3000. You might need to login to your Flex instance by clicking on the "Login with Twilio" link and logging in with your Twilio credentials.
 
 ```bash
 twilio plugins:install @twilio-labs/plugin-flex@beta
