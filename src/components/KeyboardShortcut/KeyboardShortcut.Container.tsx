@@ -11,7 +11,7 @@ export interface StateToProps {
 }
 
 export interface DispatchToProps {
-    updateKeysPressed: (pressedKeys: PressedKeys) => void;
+    updatePressedKeys: (pressedKeys: PressedKeys) => void;
     openGuideModal: () => void;
     closeGuideModal: () => void;
 }
@@ -22,7 +22,7 @@ const mapStateToProps = (state: AppState): StateToProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchToProps => ({
-  updateKeysPressed: bindActionCreators(Actions.updateKeysPressed, dispatch),
+  updatePressedKeys: bindActionCreators(Actions.updatePressedKeys, dispatch),
   openGuideModal: bindActionCreators(Actions.openGuideModal, dispatch),
   closeGuideModal: bindActionCreators(Actions.closeGuideModal, dispatch),
 });

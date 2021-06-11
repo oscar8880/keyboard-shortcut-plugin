@@ -19,7 +19,7 @@ const initialState: KeyboardShortcutState = {
 };
 
 export class Actions {
-  public static updateKeysPressed = (pressedKeys: PressedKeys): Action => ({ type: ACTION_UPDATE_KEYS_PRESSED, payload: pressedKeys});
+  public static updatePressedKeys = (pressedKeys: PressedKeys): Action => ({ type: ACTION_UPDATE_KEYS_PRESSED, payload: pressedKeys});
   public static openGuideModal = (): Action => ({ type: ACTION_OPEN_GUIDE_MODAL});
   public static closeGuideModal = (): Action => ({ type: ACTION_CLOSE_GUIDE_MODAL});
 }

@@ -25,10 +25,8 @@ class KeyboardShortcut extends Component<KeyboardShortcutProps> {
 
         if(eventType === 'keydown') {
             this.props.shortcuts.forEach(shortcut => {
-                const {keys, action} = shortcut;
-                if(keys.every(key => {
-                    return key === pressedKey || this.props.pressedKeys[key]
-                })) {
+                const { keys, action } = shortcut;
+                if(keys.every(key => key === pressedKey || this.props.pressedKeys[key])) {
                     action();
                     return;
                 }
@@ -37,7 +35,7 @@ class KeyboardShortcut extends Component<KeyboardShortcutProps> {
         
         if(this.props.pressedKeys[pressedKey] !== undefined) {
             const updatedPressedKeys = {...this.props.pressedKeys, [pressedKey]: eventType === 'keydown'};
-            this.props.updateKeysPressed(updatedPressedKeys)
+            this.props.updatePressedKeys(updatedPressedKeys)
         }
     }
 
@@ -50,7 +48,7 @@ class KeyboardShortcut extends Component<KeyboardShortcutProps> {
             return result;
         }, {})
 
-        this.props.updateKeysPressed(initialKeys)
+        this.props.updatePressedKeys(initialKeys)
     }
 
     componentWillUnmount() {
