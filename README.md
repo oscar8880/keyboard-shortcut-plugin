@@ -12,25 +12,25 @@ An example plugin to demonstrate how keyboard shortcut can be added to Flex. Inc
 cd keyboard-shortcut-plugin
 ```
 
-2. Install dependencies by running `npm install`:
+3. Install dependencies by running `npm install`:
 
 ```bash
 npm install
 ```
 
-3. Copy the example appConfig.js file:
+4. Copy the example appConfig.js file:
 
 ```bash
 cp public/appConfig.example.js public/appConfig.js
 ```
 
-4. Start the plugin locally by running:
+5. Start the plugin locally by running:
 
 ```bash
 twilio flex:plugins:start
 ```
 
-5. A Flex instance should now be running on localhost:3000. You might need to login to your Flex instance by clicking on the "Login with Twilio" link and logging in with your Twilio credentials.
+6. A Flex instance should now be running on localhost:3000. You might need to login to your Flex instance by clicking on the "Login with Twilio" link and logging in with your Twilio credentials.
 
 ## Usage
 
