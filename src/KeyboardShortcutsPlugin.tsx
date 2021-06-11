@@ -4,7 +4,7 @@ import { FlexPlugin } from 'flex-plugin';
 
 import reducers, { namespace } from './states';
 import KeyboardShortcut from './components/KeyboardShortcut/KeyboardShortcut.Container';
-import KeyBoardShortcutManager from './KeyboardShortcutManager';
+import KeyboardShortcutManager from './KeyboardShortcutManager';
 import { IconButton } from '@twilio/flex-ui';
 import { Actions } from './states/KeyboardShortcutState';
 
@@ -25,7 +25,7 @@ export default class KeyboardShortcutsPlugin extends FlexPlugin {
   init(flex: typeof Flex, manager: Flex.Manager) {
     this.registerReducers(manager);
 
-    const shortcutManager = new KeyBoardShortcutManager(flex, manager);
+    const shortcutManager = new KeyboardShortcutManager(flex, manager);
 
     shortcutManager.addShortcut(['g'], shortcutManager.toggleGuide.bind(shortcutManager));
     shortcutManager.addShortcut(['s'], shortcutManager.toggleSidebar.bind(shortcutManager));

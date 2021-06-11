@@ -5,7 +5,7 @@ export interface KeyBoardShortcutRule {
     keys: string[], action: () => void
 }
 
-class KeyBoardShortcutManager {
+class KeyboardShortcutManager {
     private flex: typeof Flex;
     private manager: Flex.Manager;
     public shortcuts: KeyBoardShortcutRule[];
@@ -138,4 +138,4 @@ class KeyBoardShortcutManager {
     }
 }
 
-export default KeyBoardShortcutManager;
+export default KeyboardShortcutManager;
