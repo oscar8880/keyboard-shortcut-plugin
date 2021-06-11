@@ -26,10 +26,6 @@ twilio flex:plugins:start
 
 4. A Flex instance should now be running on localhost:3000. You might need to login to your Flex instance by clicking on the "Login with Twilio" link and logging in with your Twilio credentials.
 
-```bash
-twilio plugins:install @twilio-labs/plugin-flex@beta
-```
-
 ## Usage
 
 ### Using keyboard shortcuts
