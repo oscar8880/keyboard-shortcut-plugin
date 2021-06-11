@@ -35,7 +35,7 @@ twilio flex:plugins:start
 ## Usage
 
 ### Using keyboard shortcuts
-Once the Plugin is running, you can open a guide to available shortcuts by pressing the 'G' key, or by clicking the question mark in the top left of the UI. There you will find a list of actions that can be triggered via the keyboard, and the key combinations required to trigger them.
+Once the Plugin is running, you can open a guide to available shortcuts by pressing the 'G' key, or by clicking the info button in the top right of the UI. There you will find a list of actions that can be triggered via the keyboard, and the key combinations required to trigger them.
 
 ### Adding a new shortcut
 1.  Create a new public method on the `KeyboardShortcutManager` class which will execute the desired functionality of the keyboard shortcut. You can make use of the `flex` and `manager` properties to access the Flex store and interact with the Actions framework.

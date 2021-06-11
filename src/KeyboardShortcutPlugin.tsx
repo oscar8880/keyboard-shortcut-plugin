@@ -41,7 +41,16 @@ export default class KeyboardShortcutPlugin extends FlexPlugin {
     shortcutManager.addShortcut(['w'], shortcutManager.wrapuptask.bind(shortcutManager));
 
     flex.RootContainer.Content.add(<KeyboardShortcut shortcuts={shortcutManager.shortcuts} key="keyboard-shortcut"/>)
-    flex.MainHeader.Content.add(<IconButton onClick={() => manager.store.dispatch(Actions.openGuideModal())} key="keyboard-shortcut-guide-button" icon="IcnInfo"/>,  { sortOrder: 1 } )
+    flex.MainHeader.Content.add(
+      <IconButton 
+        onClick={() => manager.store.dispatch(Actions.openGuideModal())} 
+        icon="Info" 
+        key="keyboard-shortcut-guide-button"/>,  
+      { 
+        sortOrder: -1, 
+        align: "end" 
+      }
+    )
   }
 
   /**
