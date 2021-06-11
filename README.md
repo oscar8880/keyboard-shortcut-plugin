@@ -63,9 +63,9 @@ class  KeyboardShortcutPlugin {
 
 *Note 2*: In cases where keys modify the value of other keys, such as Shift, subsequent keys should account for this to work as intended. For example:
 
-:heavy_check_mark:  `['Shift', 'K']`
+`['Shift', 'K']` :heavy_check_mark:
 
-:x: `['Shift', 'k']`
+`['Shift', 'k']` :x:
 
 3.  Add the new shortcut to the `keyboardGuide` object in `src/components/KeyboardShortcut/KeyboardShortcutGuide.ts` so that it appears in the Keyboard Shortcuts Help guide
 
