@@ -1,31 +1,36 @@
-# Your custom Twilio Flex Plugin
+# Keyboard Shortcuts Plugin
 
-Twilio Flex Plugins allow you to customize the appearance and behavior of [Twilio Flex](https://www.twilio.com/flex). If you want to learn more about the capabilities and how to use the API, check out our [Flex documentation](https://www.twilio.com/docs/flex).
+An example plugin to demonstrate how keyboard shortcuts can be added to Flex. Includes keyboard shortcuts for common actions like selecting and accepting a task, changing agent availability, etc.
 
 ## Setup
 
-Make sure you have [Node.js](https://nodejs.org) as well as [`npm`](https://npmjs.com). We support Node >= 10.12 (and recommend the _even_ versions of Node). Afterwards, install the dependencies by running `npm install`:
+1. Clone the repo to a directory of your choice.
+
+2. Navigate into the repo:
 
 ```bash
-cd 
+cd keyboard-shortcuts
+```
 
-# If you use npm
+2. Install dependencies by running `npm install`:
+
+```bash
 npm install
 ```
 
-Next, please install the [Twilio CLI](https://www.twilio.com/docs/twilio-cli/quickstart) by running:
+3. Start the plugin locally by running:
 
 ```bash
-brew tap twilio/brew && brew install twilio
+twilio flex:plugins:start
 ```
 
-Finally, install the [Flex Plugin extension](https://github.com/twilio-labs/plugin-flex/tree/v1-beta) for the Twilio CLI:
+4. A Flex instance should now be running on localhost:3000. You might need to login to your Flex instance by clicking on the "Login with Twilio" link and logging in with your Twilio credentials.
 
 ```bash
 twilio plugins:install @twilio-labs/plugin-flex@beta
 ```
 
-## Development
+## Deployment
 
-Run `twilio flex:plugins --help` to see all the commands we currently support. For further details on Flex Plugins refer to our documentation on the [Twilio Docs](https://www.twilio.com/docs/flex/developer/plugins/cli) page.
+For details on how to deploy this, or any, Flex Plugin refer to this documentation on the [Twilio Docs](https://www.twilio.com/docs/flex/quickstart/getting-started-plugin#deploy-your-flex-plugin) page.
 
