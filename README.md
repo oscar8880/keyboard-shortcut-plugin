@@ -30,6 +30,10 @@ twilio flex:plugins:start
 twilio plugins:install @twilio-labs/plugin-flex@beta
 ```
 
+## Usage
+
+Once the Plugin is running, you can open a guide to available shortcuts by pressing the 'G' key, or by clicking the question mark in the top left of the UI. There you will find a list of actions that can be triggered via the keyboard, and the key combinations require to trigger them.
+
 ## Deployment
 
 For details on how to deploy this, or any, Flex Plugin refer to this documentation on the [Twilio Docs](https://www.twilio.com/docs/flex/quickstart/getting-started-plugin#deploy-your-flex-plugin) page.
