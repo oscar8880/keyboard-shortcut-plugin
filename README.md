@@ -32,7 +32,7 @@ twilio plugins:install @twilio-labs/plugin-flex@beta
 
 ## Usage
 
-Once the Plugin is running, you can open a guide to available shortcuts by pressing the 'G' key, or by clicking the question mark in the top left of the UI. There you will find a list of actions that can be triggered via the keyboard, and the key combinations require to trigger them.
+Once the Plugin is running, you can open a guide to available shortcuts by pressing the 'G' key, or by clicking the question mark in the top left of the UI. There you will find a list of actions that can be triggered via the keyboard, and the key combinations required to trigger them.
 
 ## Deployment
 
