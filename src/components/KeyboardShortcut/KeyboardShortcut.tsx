@@ -25,7 +25,6 @@ class KeyboardShortcut extends Component<KeyboardShortcutProps> {
 
         if(eventType === 'keydown') {
             for (const { keys, action } of this.props.shortcuts) {
-                console.log(keys, 'keys')
                 if (keys.every((key) => key === pressedKey || this.props.pressedKeys[key])) {
                   action();
                   break;
