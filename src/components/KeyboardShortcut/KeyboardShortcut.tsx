@@ -24,13 +24,13 @@ class KeyboardShortcut extends Component<KeyboardShortcutProps> {
         if (repeat) return; 
 
         if(eventType === 'keydown') {
-            this.props.shortcuts.forEach(shortcut => {
-                const { keys, action } = shortcut;
-                if(keys.every(key => key === pressedKey || this.props.pressedKeys[key])) {
-                    action();
-                    return;
+            for (const { keys, action } of this.props.shortcuts) {
+                console.log(keys, 'keys')
+                if (keys.every((key) => key === pressedKey || this.props.pressedKeys[key])) {
+                  action();
+                  break;
                 }
-            })
+              }
         }
         
         if(this.props.pressedKeys[pressedKey] !== undefined) {
@@ -42,6 +42,7 @@ class KeyboardShortcut extends Component<KeyboardShortcutProps> {
     componentDidMount() {
         window.addEventListener('keydown', this.keyboardEventListener, true);
         window.addEventListener('keyup', this.keyboardEventListener, true);
+
 
         const initialKeys = this.props.shortcuts.reduce<{[key:string] : boolean}>((result, curr) => {
             curr.keys.forEach(key => result[key] = false)
