@@ -1,4 +1,4 @@
 import * as FlexPlugin from 'flex-plugin';
-import KeyboardShortcutsPlugin from './KeyboardShortcutsPlugin';
+import KeyboardShortcutPlugin from './KeyboardShortcutPlugin';
 
-FlexPlugin.loadPlugin(KeyboardShortcutsPlugin);
+FlexPlugin.loadPlugin(KeyboardShortcutPlugin);

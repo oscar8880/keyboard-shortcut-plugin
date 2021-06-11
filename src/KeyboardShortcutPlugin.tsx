@@ -8,9 +8,9 @@ import KeyboardShortcutManager from './KeyboardShortcutManager';
 import { IconButton } from '@twilio/flex-ui';
 import { Actions } from './states/KeyboardShortcutState';
 
-const PLUGIN_NAME = 'KeyboardShortcutsPlugin';
+const PLUGIN_NAME = 'KeyboardShortcutPlugin';
 
-export default class KeyboardShortcutsPlugin extends FlexPlugin {
+export default class KeyboardShortcutPlugin extends FlexPlugin {
   constructor() {
     super(PLUGIN_NAME);
   }
@@ -40,8 +40,8 @@ export default class KeyboardShortcutsPlugin extends FlexPlugin {
     shortcutManager.addShortcut(['c'], shortcutManager.completeTask.bind(shortcutManager));
     shortcutManager.addShortcut(['w'], shortcutManager.wrapuptask.bind(shortcutManager));
 
-    flex.RootContainer.Content.add(<KeyboardShortcut shortcuts={shortcutManager.shortcuts} key="keyboard-shortcuts"/>)
-    flex.MainHeader.Content.add(<IconButton onClick={() => manager.store.dispatch(Actions.openGuideModal())} key="keyboard-shortcuts-guide" icon="IcnInfo"/>,  { sortOrder: 1 } )
+    flex.RootContainer.Content.add(<KeyboardShortcut shortcuts={shortcutManager.shortcuts} key="keyboard-shortcut"/>)
+    flex.MainHeader.Content.add(<IconButton onClick={() => manager.store.dispatch(Actions.openGuideModal())} key="keyboard-shortcut-guide-button" icon="IcnInfo"/>,  { sortOrder: 1 } )
   }
 
   /**

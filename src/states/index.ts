@@ -4,7 +4,7 @@ import { combineReducers, Action as ReduxAction } from 'redux';
 import { KeyboardShortcutState, reduce as KeyboardShortcutReducer } from './KeyboardShortcutState';
 
 // Register your redux store under a unique namespace
-export const namespace = 'keyboard-shortcuts';
+export const namespace = 'keyboard-shortcut-plugin';
 
 // Extend this payload to be of type that your ReduxAction is
 export interface Action extends ReduxAction {
@@ -14,7 +14,7 @@ export interface Action extends ReduxAction {
 // Register all component states under the namespace
 export interface AppState {
   flex: FlexAppState;
-  'keyboard-shortcuts': {
+  'keyboard-shortcut-plugin': {
     keyboardShortcut: KeyboardShortcutState;
   };
 }

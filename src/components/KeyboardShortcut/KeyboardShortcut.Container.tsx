@@ -17,8 +17,8 @@ export interface DispatchToProps {
 }
 
 const mapStateToProps = (state: AppState): StateToProps => ({
-  pressedKeys: state['keyboard-shortcuts'].keyboardShortcut.pressedKeys,
-  isGuideModalOpen: state['keyboard-shortcuts'].keyboardShortcut.isGuideModalOpen
+  pressedKeys: state['keyboard-shortcut-plugin'].keyboardShortcut.pressedKeys,
+  isGuideModalOpen: state['keyboard-shortcut-plugin'].keyboardShortcut.isGuideModalOpen
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchToProps => ({

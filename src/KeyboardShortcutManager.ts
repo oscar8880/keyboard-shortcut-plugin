@@ -21,7 +21,7 @@ class KeyboardShortcutManager {
     }
 
     public toggleGuide() {
-        if(this.manager.store.getState()['keyboard-shortcuts'].keyboardShortcut.isGuideModalOpen) {
+        if(this.manager.store.getState()['keyboard-shortcut-plugin'].keyboardShortcut.isGuideModalOpen) {
             this.manager.store.dispatch(Actions.closeGuideModal())
         } else {
             this.manager.store.dispatch(Actions.openGuideModal())

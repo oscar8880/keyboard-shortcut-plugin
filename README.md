@@ -1,6 +1,6 @@
-# Keyboard Shortcuts Plugin
+# Keyboard Shortcut Plugin
 
-An example plugin to demonstrate how keyboard shortcuts can be added to Flex. Includes keyboard shortcuts for common actions like selecting and accepting a task, changing agent availability, etc.
+An example plugin to demonstrate how keyboard shortcut can be added to Flex. Includes keyboard shortcut for common actions like selecting and accepting a task, changing agent availability, etc.
 
 ## Setup
 
@@ -9,7 +9,7 @@ An example plugin to demonstrate how keyboard shortcuts can be added to Flex. In
 2. Navigate into the repo:
 
 ```bash
-cd keyboard-shortcuts
+cd keyboard-shortcut-plugin
 ```
 
 2. Install dependencies by running `npm install`:
@@ -47,9 +47,9 @@ class  KeyboardShortcutManager {
 }
 ```
 
-2. In the `init` function of `KeyboardShortcutsPlugin` class you can now add your new shortcut by calling `shortcutManager.addShortcut` and providing an array of the keys required to trigger the shortcut, plus the function that you created in the previous step.
+2. In the `init` function of `KeyboardShortcutPlugin` class you can now add your new shortcut by calling `shortcutManager.addShortcut` and providing an array of the keys required to trigger the shortcut, plus the function that you created in the previous step.
 ```javascript
-class  KeyboardShortcutsPlugin {
+class  KeyboardShortcutPlugin {
 	... 
 	init(flex: typeof  Flex, manager: Flex.Manager) {
 		...
