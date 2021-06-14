@@ -75,3 +75,10 @@ class  KeyboardShortcutPlugin {
 
 For details on how to deploy this, or any, Flex Plugin refer to this documentation on the [Twilio Docs](https://www.twilio.com/docs/flex/quickstart/getting-started-plugin#deploy-your-flex-plugin) page.
 
+## Testing
+
+Run tests with the following command:
+
+```bash
+twilio flex:plugins:test
+```
