@@ -38,7 +38,7 @@ twilio flex:plugins:start
 Once the Plugin is running, you can open a guide to available shortcuts by pressing the 'G' key, or by clicking the info (i) button in the top right of the UI. There you will find a list of actions that can be triggered via the keyboard, and the key combinations required to trigger them.
 
 ### Adding a new shortcut
-1.  Create a new public method on the `KeyboardShortcutManager` class which will execute the desired functionality of the keyboard shortcut. You can make use of the `flex` and `manager` properties to access the Flex store and interact with the Actions framework.
+1.  Create a new public method on the `KeyboardShortcutManager` class which will execute the desired functionality of the keyboard shortcut. You can make use of the `flex` and `manager` properties to access the Flex store and interact with the Actions framework. If your desired functionality doesn't require access to the Flex store or Actions, the `KeyboardShortcutManager.addShortcutManager` function will take any function as its second argument.
 ```javascript
 class  KeyboardShortcutManager {
 	...
@@ -61,7 +61,7 @@ class  KeyboardShortcutPlugin {
 	...
 }
 ```
-*Note 1*: Ensure you bind the function to the `shortcutManager` instance by calling `bind(shortcutManager)`
+*Note 1*: If you're using a `shortcutManager` method, ensure you bind the function to the `shortcutManager` instance by calling `bind(shortcutManager)`
 
 *Note 2*: In cases where keys modify the value of other keys, such as Shift, subsequent keys should account for this to work as intended. For example:
 
