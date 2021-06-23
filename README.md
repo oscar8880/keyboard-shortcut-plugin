@@ -1,6 +1,6 @@
 # Keyboard Shortcut Plugin
 
-An example plugin to demonstrate how keyboard shortcuts can be added to Flex. Includes keyboard shortcuts for common actions like selecting and accepting a task, changing agent availability, etc.
+An example plugin to demonstrate how keyboard shortcuts can be added to Twilio Flex. Includes keyboard shortcuts for common actions like selecting and accepting a task, changing agent availability, etc.
 
 ## Setup
 
